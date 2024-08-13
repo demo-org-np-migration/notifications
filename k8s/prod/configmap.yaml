@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: notifications-config
+  namespace: prod
+  labels:
+    app.kubernetes.io/name: notifications
+    app.kubernetes.io/part-of: cauri
+    cauri.io/team: channels
+data:
+  SERVICE_NAME: "notifications"
+  ENV: "prod"
+  PORT: "8080"
+  LOG_LEVEL: "info"
+  DB_HOST: "postgres.prod.svc"
+  DB_PORT: "5432"
+  DB_NAME: "notifications"
+  KEYCLOAK_ISSUER: "http://keycloak.platform.svc:8080/realms/cauri-prod"
+  KEYCLOAK_CLIENT_ID: "notifications"
+  AWS_ENDPOINT_URL: "http://localstack.platform.svc:4566"
+  AWS_REGION: "us-east-1"
+  SQS_QUEUE_PREFIX: "prod-"
+  ACCOUNTS_API_URL: "http://accounts-api.prod.svc:8080"
+  MAILGUNNER_URL: "http://api.mailgunner.net"
+  PUSHLY_URL: "http://api.pushly.app"
