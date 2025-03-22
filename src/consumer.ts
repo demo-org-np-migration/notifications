@@ -77,6 +77,12 @@ export async function processMessage(message: PaymentCompletedMessage): Promise<
 async function handleRaw(raw: Message): Promise<void> {
   if (!raw.Body) return;
   const message = JSON.parse(raw.Body) as PaymentCompletedMessage;
+  if (message.type !== 'payment.completed') {
+    // La cola es de un solo tipo de mensaje hoy, pero si el día de mañana alguien
+    // publica otra cosa acá, mejor loguear y seguir que tirar y frenar el resto del batch.
+    log.warn({ type: message.type }, 'unknown message type on notifications queue, skipping');
+    return;
+  }
   await processMessage(message);
 }
 
