@@ -51,3 +51,6 @@ buildea y pushea a `ghcr.io/demo-org-np-migration/notifications`, aplica en `sta
 `v*`, en `prod` (con approval manual).
 
 Este servicio no expone métricas.
+
+---
+owner actual: channels, ver #channels
