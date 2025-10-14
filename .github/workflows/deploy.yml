@@ -50,7 +50,9 @@ jobs:
 
       - name: Apply staging manifests
         run: |
-          sed "s/IMAGE_TAG/${{ needs.build.outputs.tag }}/" k8s/staging/*.yaml | kubectl apply -n staging -f -
+          for f in k8s/staging/*.yaml; do
+            sed "s/IMAGE_TAG/${{ needs.build.outputs.tag }}/" "$f" | kubectl apply -n staging -f -
+          done
 
   deploy-prod:
     needs: [build, deploy-staging]
@@ -62,4 +64,6 @@ jobs:
 
       - name: Apply prod manifests
         run: |
-          sed "s/IMAGE_TAG/${{ github.ref_name }}/" k8s/prod/*.yaml | kubectl apply -n prod -f -
+          for f in k8s/prod/*.yaml; do
+            sed "s/IMAGE_TAG/${{ github.ref_name }}/" "$f" | kubectl apply -n prod -f -
+          done
